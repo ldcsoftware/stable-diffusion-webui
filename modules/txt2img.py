@@ -44,10 +44,14 @@ def txt2img_create_processing(id_task: str, request: gr.Request, prompt: str, ne
         override_settings=override_settings,
     )
 
+    print("txt2img processing:", p.__dict__)
+
     p.scripts = modules.scripts.scripts_txt2img
     p.script_args = args
 
     p.user = request.username
+
+    print("txt2img args:", *args)
 
     if shared.opts.enable_console_prompts:
         print(f"\ntxt2img: {prompt}", file=shared.progress_print_out)

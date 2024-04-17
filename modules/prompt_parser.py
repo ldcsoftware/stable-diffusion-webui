@@ -259,6 +259,12 @@ def get_multicond_learned_conditioning(model, prompts, steps, hires_steps=None, 
     res_indexes, prompt_flat_list, prompt_indexes = get_multicond_prompt_list(prompts)
 
     learned_conditioning = get_learned_conditioning(model, prompt_flat_list, steps, hires_steps, use_old_scheduling)
+    print("get_multicond_learned_conditioning", 
+          "prompts:",prompts,
+          "res_indexes:",res_indexes,
+          "prompt_flat_list:",prompt_flat_list, 
+          "learned_conditioning:",learned_conditioning,
+          "steps:", steps)
 
     res = []
     for indexes in res_indexes:

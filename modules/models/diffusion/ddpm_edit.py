@@ -470,6 +470,7 @@ class LatentDiffusion(DDPM):
                  scale_by_std=False,
                  load_ema=True,
                  *args, **kwargs):
+        print("LatentDiffusion __init__")
         self.num_timesteps_cond = default(num_timesteps_cond, 1)
         self.scale_by_std = scale_by_std
         assert self.num_timesteps_cond <= kwargs['timesteps']
@@ -899,7 +900,7 @@ class LatentDiffusion(DDPM):
         return self.p_losses(x, c, t, *args, **kwargs)
 
     def apply_model(self, x_noisy, t, cond, return_ids=False):
-
+        print("LatentDiffusion apply_model. x_noisy, t, cond", type(x_noisy), type(t), type(cond))
         if isinstance(cond, dict):
             # hybrid case, cond is expected to be a dict
             pass
@@ -1415,6 +1416,8 @@ class DiffusionWrapper(pl.LightningModule):
         assert self.conditioning_key in [None, 'concat', 'crossattn', 'hybrid', 'adm']
 
     def forward(self, x, t, c_concat: list = None, c_crossattn: list = None):
+        print("DiffusionWrapper forward. x, t, c_concat, c_crossattn", type(x), type(t), type(c_concat), type(c_crossattn))
+
         if self.conditioning_key is None:
             out = self.diffusion_model(x, t)
         elif self.conditioning_key == 'concat':

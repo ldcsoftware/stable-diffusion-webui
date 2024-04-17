@@ -17,6 +17,7 @@ def has_xpu() -> bool:
 
 
 def has_mps() -> bool:
+    return False
     if sys.platform != "darwin":
         return False
     else:

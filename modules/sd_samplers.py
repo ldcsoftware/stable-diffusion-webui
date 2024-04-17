@@ -32,6 +32,7 @@ def find_sampler_config(name):
 
 def create_sampler(name, model):
     config = find_sampler_config(name)
+    print("create_sampler. name:", name, "config:", config)
 
     assert config is not None, f'bad sampler name: {name}'
 

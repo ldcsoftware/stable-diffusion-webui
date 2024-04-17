@@ -53,6 +53,7 @@ class CFGDenoiserKDiffusion(sd_samplers_cfg_denoiser.CFGDenoiser):
     @property
     def inner_model(self):
         if self.model_wrap is None:
+            print("shared.sd_model.parameterization", shared.sd_model.parameterization)
             denoiser = k_diffusion.external.CompVisVDenoiser if shared.sd_model.parameterization == "v" else k_diffusion.external.CompVisDenoiser
             self.model_wrap = denoiser(shared.sd_model, quantize=shared.opts.enable_quantization)
 
@@ -179,6 +180,8 @@ class KDiffusionSampler(sd_samplers_common.Sampler):
         steps = steps or p.steps
 
         sigmas = self.get_sigmas(p, steps)
+
+        print("sample sigmas:", sigmas)
 
         if opts.sgm_noise_multiplier:
             p.extra_generation_params["SGM noise multiplier"] = True

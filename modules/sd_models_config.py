@@ -29,6 +29,9 @@ def is_using_v_parameterization_for_sd2(state_dict):
     Detects whether unet in state_dict is using v-parameterization. Returns True if it is. You're welcome.
     """
 
+    import logging
+    logging.info("is_using_v_parameterization_for_sd2")
+
     import ldm.modules.diffusionmodules.openaimodel
 
     device = devices.cpu
@@ -54,6 +57,8 @@ def is_using_v_parameterization_for_sd2(state_dict):
         unet.eval()
 
     with torch.no_grad():
+        logging.info("is_using_v_parameterization_for_sd2 load_state_dict")
+
         unet_sd = {k.replace("model.diffusion_model.", ""): v for k, v in state_dict.items() if "model.diffusion_model." in k}
         unet.load_state_dict(unet_sd, strict=True)
         unet.to(device=device, dtype=torch.float)
@@ -113,6 +118,7 @@ def find_checkpoint_config(state_dict, info):
         return guess_model_config_from_state_dict(state_dict, "")
 
     config = find_checkpoint_config_near_filename(info)
+    print("find_checkpoint_config_near_filename. config:", config)
     if config is not None:
         return config
 

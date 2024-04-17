@@ -595,14 +595,17 @@ class ScriptRunner:
                 self.scripts.append(script)
                 self.alwayson_scripts.append(script)
                 script.alwayson = True
+                print("initialize_scripts. alwayson_scripts:", script.filename)
 
             elif visibility:
                 self.scripts.append(script)
                 self.selectable_scripts.append(script)
+                print("initialize_scripts. selectable_scripts:", script.filename)
 
         self.callback_map.clear()
 
         self.apply_on_before_component_callbacks()
+        print("initialize_scripts selectable_scripts:", self.selectable_scripts, "alwayson_scripts:",self.alwayson_scripts)
 
     def apply_on_before_component_callbacks(self):
         for script in self.scripts:
@@ -765,6 +768,8 @@ class ScriptRunner:
             return None
 
         script = self.selectable_scripts[script_index-1]
+
+        print("scripts run:", script)
 
         if script is None:
             return None
